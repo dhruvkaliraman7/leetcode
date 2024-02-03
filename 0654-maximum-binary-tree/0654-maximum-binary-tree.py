@@ -9,9 +9,14 @@ class Solution:
         def func(arr):
             if not arr:
                 return None
-            tmp=TreeNode(max(arr))
-            tmp.left=func(arr[:arr.index(max(arr))])
-            tmp.right=func(arr[arr.index(max(arr))+1:])
+            min_ind,max_val=-1,-1
+            for i,ele in enumerate(arr):
+                if ele>max_val:
+                    max_val=ele
+                    min_ind=i
+            tmp=TreeNode(max_val)
+            tmp.left=func(arr[:min_ind])
+            tmp.right=func(arr[min_ind+1:])
             return tmp
         return func(nums)
         
