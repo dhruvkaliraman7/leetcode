@@ -1,23 +1,17 @@
 class Solution:
     def minCost(self, colors: str, neededTime: List[int]) -> int:
-        i=1
-        tmp_sum=0
-        cont_flag=False
+        start=colors[0]
+        cur_sum=neededTime[0]
+        tmp_max=cur_sum
         res=0
-        tot_sum=neededTime[0]
-        tmp_sum=neededTime[0]
-        while i<len(colors):
-
-            if colors[i]==colors[i-1]:
-                tmp_sum=max(tmp_sum,neededTime[i])
-                tot_sum+=neededTime[i]
-                cont_flag=True
+        for i in range(1,len(colors)):
+            if colors[i]==start:
+                cur_sum+=neededTime[i]
+                tmp_max=max(tmp_max,neededTime[i])
             else:
-                if cont_flag:
-                    res+=tot_sum-tmp_sum
-                tmp_sum=neededTime[i]
-                tot_sum=neededTime[i]
-            i+=1
-        if cont_flag:
-            res+=tot_sum-tmp_sum
+                start=colors[i]
+                res+=(cur_sum-tmp_max)
+                tmp_max=neededTime[i]
+                cur_sum=neededTime[i]
+        res+=(cur_sum-tmp_max)
         return res
