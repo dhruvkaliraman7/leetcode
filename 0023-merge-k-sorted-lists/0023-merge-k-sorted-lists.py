@@ -5,18 +5,18 @@
 #         self.next = next
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-        arr=[]
-        for i in range(len(lists)):
-            if lists[i]:
-                arr.append([lists[i].val,i,lists[i]])
-        heapq.heapify(arr)
-        res=[]
-        tmp1=ListNode()
-        b=tmp1
-        while arr:
-            tmp=heapq.heappop(arr)
-            tmp1.next=tmp[2]
-            if tmp[2].next:
-                heapq.heappush(arr,[tmp[2].next.val,tmp[1],tmp[2].next])
-            tmp1=tmp1.next
-        return b.next
+        head=head_dummy=ListNode()
+        tmp=[]
+        for i,lis in enumerate(lists):
+            if lis:
+                tmp.append((lis.val,i,lis))
+                # print(lis.val)
+                
+        heapq.heapify(tmp)
+        while tmp:
+            pop_node=heapq.heappop(tmp)
+            head.next=pop_node[2]
+            head=head.next
+            if pop_node[2].next:
+                heapq.heappush(tmp,(pop_node[2].next.val,pop_node[1],pop_node[2].next))
+        return head_dummy.next
