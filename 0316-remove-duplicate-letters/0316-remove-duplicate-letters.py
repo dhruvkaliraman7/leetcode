@@ -1,20 +1,18 @@
 class Solution:
     def removeDuplicateLetters(self, s: str) -> str:
-        dic=defaultdict(int)
-        for ch in s:
-            dic[ch]+=1
-        stack=[]
-        for ch in s:
+        dic = defaultdict(int)
+        for st in s:
+            dic[st] += 1
+        stack = []
+        for st in s:
             if not stack:
-                stack.append(ch)
+                stack.append(st)
             else:
-                while stack and ch not in stack and ord(stack[-1])>ord(ch) and dic[stack[-1]]>1:
+                while stack and st not in stack and ord(stack[-1])> ord(st) and dic[stack[-1]]>1:
                     dic[stack[-1]]-=1
                     stack.pop()
-                if ch not in stack:
-                    stack.append(ch)
+                if st not in stack:
+                    stack.append(st)
                 else:
-                    dic[ch]-=1
+                    dic[st]-=1
         return ''.join(stack)
-            
-        
