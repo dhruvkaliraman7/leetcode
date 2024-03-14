@@ -1,54 +1,23 @@
 class Solution:
     def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
-        self.arr=[]
-        self.visit=set()
-        r,c=len(matrix),len(matrix[0])
-        def dfs(x,y,mode):
-            #print(x,y)
-            if x<0 or x>=r or y<0 or y>=c:
-                return
-            if (x,y) in self.visit:
-                return
-            if mode=='r':
-                if (x,y) not in self.visit:
-                    self.visit.add((x,y))
-                self.arr.append(matrix[x][y])
-                if y==c-1 or (x,y+1) in self.visit:
-                    if x+1==r:
-                        return
-                    dfs(x+1,y,'d')
-                else:
-                    dfs(x,y+1,'r')
-            if mode=='d':
-                if (x,y) not in self.visit:
-                    self.visit.add((x,y))
-                self.arr.append(matrix[x][y])
-                if x==r-1 or (x+1,y) in self.visit:
-                    if y-1==c:
-                        return
-                    dfs(x,y-1,'l')
-                else:
-                    dfs(x+1,y,'d')
-            if mode=='l':
-                if (x,y) not in self.visit:
-                    self.visit.add((x,y))
-                self.arr.append(matrix[x][y])
-                if y==0 or (x,y-1) in self.visit:
-                    if x-1==r:
-                        return
-                    dfs(x-1,y,'u')
-                else:
-                    dfs(x,y-1,'l')
-            if mode=='u':
-                if (x,y) not in self.visit:
-                    self.visit.add((x,y))
-                self.arr.append(matrix[x][y])
-                if x==1 or (x-1,y) in self.visit:
-                    if y+1==c:
-                        return
-                    dfs(x,y+1,'r')
-                else:
-                    dfs(x-1,y,'u')
-        dfs(0,0,'r')
-        return self.arr
-        
+        up = left = 0
+        down = len(matrix) - 1
+        right = len(matrix[0]) - 1
+        r,c = len(matrix) , len(matrix[0])
+        res = []
+        while (r*c) > len(res):
+            for i in range(left,right+1):
+                res.append(matrix[up][i])
+            for i in range(up+1,down+1):
+                res.append(matrix[i][right])
+            if up!=down:
+                for i in range(right-1,left-1,-1):
+                    res.append(matrix[down][i])
+            if right!=left:
+                for i in range(down-1,up,-1):
+                    res.append(matrix[i][left])
+            left += 1
+            right -=1
+            up +=1
+            down -=1
+        return res
