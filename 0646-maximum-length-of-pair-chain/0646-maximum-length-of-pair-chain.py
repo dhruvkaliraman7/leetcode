@@ -3,7 +3,7 @@ class Solution:
         pairs.sort()
         count = 1
         prev = pairs[0][1]
-        print(pairs)
+        # print(pairs)
         for i in range(1,len(pairs)):
             if pairs[i][0] > prev:
                 count += 1
