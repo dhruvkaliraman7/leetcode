@@ -1,17 +1,20 @@
 class Solution:
     def compress(self, chars: List[str]) -> int:
-        i=0
-        res=0
-        while i<len(chars):
-            tmp_len=1
-            while i+tmp_len<len(chars) and chars[i]==chars[i+tmp_len]:
-                tmp_len+=1
-            chars[res]=chars[i]
-            res+=1
-            if tmp_len>1:
-                str_tmp_len=str(tmp_len)
-                chars[res:res+len(str_tmp_len)]=list(str_tmp_len)
-                res+=len(str_tmp_len)
-            i+=tmp_len
-            
-        return res
+        inputInd = 0
+        start , end = 0, len(chars) 
+        while start<end:
+            tmpChar = chars[start]
+            tmpCount = 1
+            start += 1
+            while start < end and chars[start] == tmpChar:
+                tmpCount += 1
+                start += 1
+            chars[inputInd] = tmpChar
+            inputInd += 1
+            if tmpCount > 1:
+                str_count = str(tmpCount)
+                for l in str_count:
+                    chars[inputInd] = l
+                    inputInd += 1
+        return inputInd
+        
